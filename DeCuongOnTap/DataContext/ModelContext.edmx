@@ -1,0 +1,543 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DeCuongOnTapModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Administrator">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Authority">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdTeacher" Type="int" />
+          <Property Name="IdSubject" Type="int" />
+          <Property Name="IdSem" Type="int" />
+          <Property Name="IdGrade" Type="int" />
+          <Property Name="Status" Type="bit" />
+        </EntityType>
+        <EntityType Name="EssayTest">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Level" Type="nvarchar" MaxLength="20" />
+          <Property Name="Question" Type="nvarchar" MaxLength="1000" Nullable="false" />
+          <Property Name="Answer" Type="nvarchar" MaxLength="1000" Nullable="false" />
+          <Property Name="Status" Type="bit" Nullable="false" />
+          <Property Name="UpdateTime" Type="varchar" MaxLength="50" />
+          <Property Name="IdAuth" Type="int" />
+        </EntityType>
+        <EntityType Name="Grade">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GradeName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Status" Type="bit" />
+        </EntityType>
+        <EntityType Name="MultiChoice">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Level" Type="nvarchar" MaxLength="20" />
+          <Property Name="Question" Type="nvarchar" MaxLength="1000" Nullable="false" />
+          <Property Name="AnswerA" Type="nvarchar" MaxLength="1000" />
+          <Property Name="AnswerB" Type="nvarchar" MaxLength="1000" />
+          <Property Name="AnswerC" Type="nvarchar" MaxLength="1000" />
+          <Property Name="AnswerD" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Answer" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Status" Type="bit" Nullable="false" />
+          <Property Name="UpdateTime" Type="varchar" MaxLength="50" />
+          <Property Name="IdAuth" Type="int" />
+        </EntityType>
+        <EntityType Name="Semester">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SemName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Status" Type="bit" />
+        </EntityType>
+        <EntityType Name="Subject">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SubjectName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Status" Type="bit" />
+        </EntityType>
+        <EntityType Name="Teacher">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DOB" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Status" Type="bit" />
+        </EntityType>
+        <Association Name="FK__Authority__IdGra__48CFD27E">
+          <End Role="Grade" Type="Self.Grade" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Authority" Type="Self.Authority" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Grade">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Authority">
+              <PropertyRef Name="IdGrade" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Authority__IdSem__47DBAE45">
+          <End Role="Semester" Type="Self.Semester" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Authority" Type="Self.Authority" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Semester">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Authority">
+              <PropertyRef Name="IdSem" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Authority__IdSub__46E78A0C">
+          <End Role="Subject" Type="Self.Subject" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Authority" Type="Self.Authority" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subject">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Authority">
+              <PropertyRef Name="IdSubject" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Authority__IdTea__45F365D3">
+          <End Role="Teacher" Type="Self.Teacher" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Authority" Type="Self.Authority" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teacher">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Authority">
+              <PropertyRef Name="IdTeacher" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EssayTest__IdAut__5165187F">
+          <End Role="Authority" Type="Self.Authority" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="EssayTest" Type="Self.EssayTest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Authority">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EssayTest">
+              <PropertyRef Name="IdAuth" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MultiChoi__IdAut__4D94879B">
+          <End Role="Authority" Type="Self.Authority" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="MultiChoice" Type="Self.MultiChoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Authority">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MultiChoice">
+              <PropertyRef Name="IdAuth" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DeCuongOnTapModelStoreContainer">
+          <EntitySet Name="Administrator" EntityType="Self.Administrator" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Authority" EntityType="Self.Authority" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EssayTest" EntityType="Self.EssayTest" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Grade" EntityType="Self.Grade" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MultiChoice" EntityType="Self.MultiChoice" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Semester" EntityType="Self.Semester" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Subject" EntityType="Self.Subject" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Teacher" EntityType="Self.Teacher" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Authority__IdGra__48CFD27E" Association="Self.FK__Authority__IdGra__48CFD27E">
+            <End Role="Grade" EntitySet="Grade" />
+            <End Role="Authority" EntitySet="Authority" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Authority__IdSem__47DBAE45" Association="Self.FK__Authority__IdSem__47DBAE45">
+            <End Role="Semester" EntitySet="Semester" />
+            <End Role="Authority" EntitySet="Authority" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Authority__IdSub__46E78A0C" Association="Self.FK__Authority__IdSub__46E78A0C">
+            <End Role="Subject" EntitySet="Subject" />
+            <End Role="Authority" EntitySet="Authority" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Authority__IdTea__45F365D3" Association="Self.FK__Authority__IdTea__45F365D3">
+            <End Role="Teacher" EntitySet="Teacher" />
+            <End Role="Authority" EntitySet="Authority" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EssayTest__IdAut__5165187F" Association="Self.FK__EssayTest__IdAut__5165187F">
+            <End Role="Authority" EntitySet="Authority" />
+            <End Role="EssayTest" EntitySet="EssayTest" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MultiChoi__IdAut__4D94879B" Association="Self.FK__MultiChoi__IdAut__4D94879B">
+            <End Role="Authority" EntitySet="Authority" />
+            <End Role="MultiChoice" EntitySet="MultiChoice" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DeCuongOnTapModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="DeCuongOnTapEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Administrators" EntityType="DeCuongOnTapModel.Administrator" />
+          <EntitySet Name="Authorities" EntityType="DeCuongOnTapModel.Authority" />
+          <EntitySet Name="Grades" EntityType="DeCuongOnTapModel.Grade" />
+          <EntitySet Name="Semesters" EntityType="DeCuongOnTapModel.Semester" />
+          <EntitySet Name="Subjects" EntityType="DeCuongOnTapModel.Subject" />
+          <EntitySet Name="Teachers" EntityType="DeCuongOnTapModel.Teacher" />
+          <AssociationSet Name="FK__Authority__IdGra__48CFD27E" Association="DeCuongOnTapModel.FK__Authority__IdGra__48CFD27E">
+            <End Role="Grade" EntitySet="Grades" />
+            <End Role="Authority" EntitySet="Authorities" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Authority__IdSem__47DBAE45" Association="DeCuongOnTapModel.FK__Authority__IdSem__47DBAE45">
+            <End Role="Semester" EntitySet="Semesters" />
+            <End Role="Authority" EntitySet="Authorities" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Authority__IdSub__46E78A0C" Association="DeCuongOnTapModel.FK__Authority__IdSub__46E78A0C">
+            <End Role="Subject" EntitySet="Subjects" />
+            <End Role="Authority" EntitySet="Authorities" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Authority__IdTea__45F365D3" Association="DeCuongOnTapModel.FK__Authority__IdTea__45F365D3">
+            <End Role="Teacher" EntitySet="Teachers" />
+            <End Role="Authority" EntitySet="Authorities" />
+          </AssociationSet>
+          <EntitySet Name="EssayTests" EntityType="DeCuongOnTapModel.EssayTest" />
+          <EntitySet Name="MultiChoices" EntityType="DeCuongOnTapModel.MultiChoice" />
+          <AssociationSet Name="FK__EssayTest__IdAut__5165187F" Association="DeCuongOnTapModel.FK__EssayTest__IdAut__5165187F">
+            <End Role="Authority" EntitySet="Authorities" />
+            <End Role="EssayTest" EntitySet="EssayTests" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MultiChoi__IdAut__4D94879B" Association="DeCuongOnTapModel.FK__MultiChoi__IdAut__4D94879B">
+            <End Role="Authority" EntitySet="Authorities" />
+            <End Role="MultiChoice" EntitySet="MultiChoices" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="Administrator">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Authority">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdTeacher" Type="Int32" />
+          <Property Name="IdSubject" Type="Int32" />
+          <Property Name="IdSem" Type="Int32" />
+          <Property Name="IdGrade" Type="Int32" />
+          <Property Name="Status" Type="Boolean" />
+          <NavigationProperty Name="Grade" Relationship="DeCuongOnTapModel.FK__Authority__IdGra__48CFD27E" FromRole="Authority" ToRole="Grade" />
+          <NavigationProperty Name="Semester" Relationship="DeCuongOnTapModel.FK__Authority__IdSem__47DBAE45" FromRole="Authority" ToRole="Semester" />
+          <NavigationProperty Name="Subject" Relationship="DeCuongOnTapModel.FK__Authority__IdSub__46E78A0C" FromRole="Authority" ToRole="Subject" />
+          <NavigationProperty Name="Teacher" Relationship="DeCuongOnTapModel.FK__Authority__IdTea__45F365D3" FromRole="Authority" ToRole="Teacher" />
+          <NavigationProperty Name="EssayTests" Relationship="DeCuongOnTapModel.FK__EssayTest__IdAut__5165187F" FromRole="Authority" ToRole="EssayTest" />
+          <NavigationProperty Name="MultiChoices" Relationship="DeCuongOnTapModel.FK__MultiChoi__IdAut__4D94879B" FromRole="Authority" ToRole="MultiChoice" />
+          </EntityType>
+        <EntityType Name="Grade">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GradeName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Boolean" />
+          <NavigationProperty Name="Authorities" Relationship="DeCuongOnTapModel.FK__Authority__IdGra__48CFD27E" FromRole="Grade" ToRole="Authority" />
+        </EntityType>
+        <EntityType Name="Semester">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SemName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Boolean" />
+          <NavigationProperty Name="Authorities" Relationship="DeCuongOnTapModel.FK__Authority__IdSem__47DBAE45" FromRole="Semester" ToRole="Authority" />
+        </EntityType>
+        <EntityType Name="Subject">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SubjectName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Boolean" />
+          <NavigationProperty Name="Authorities" Relationship="DeCuongOnTapModel.FK__Authority__IdSub__46E78A0C" FromRole="Subject" ToRole="Authority" />
+        </EntityType>
+        <EntityType Name="Teacher">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="FullName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DOB" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="Boolean" />
+          <NavigationProperty Name="Authorities" Relationship="DeCuongOnTapModel.FK__Authority__IdTea__45F365D3" FromRole="Teacher" ToRole="Authority" />
+        </EntityType>
+        <Association Name="FK__Authority__IdGra__48CFD27E">
+          <End Type="DeCuongOnTapModel.Grade" Role="Grade" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DeCuongOnTapModel.Authority" Role="Authority" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Grade">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Authority">
+              <PropertyRef Name="IdGrade" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Authority__IdSem__47DBAE45">
+          <End Type="DeCuongOnTapModel.Semester" Role="Semester" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DeCuongOnTapModel.Authority" Role="Authority" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Semester">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Authority">
+              <PropertyRef Name="IdSem" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Authority__IdSub__46E78A0C">
+          <End Type="DeCuongOnTapModel.Subject" Role="Subject" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DeCuongOnTapModel.Authority" Role="Authority" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subject">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Authority">
+              <PropertyRef Name="IdSubject" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Authority__IdTea__45F365D3">
+          <End Type="DeCuongOnTapModel.Teacher" Role="Teacher" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DeCuongOnTapModel.Authority" Role="Authority" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teacher">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Authority">
+              <PropertyRef Name="IdTeacher" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="EssayTest">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Level" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Question" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Answer" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+          <Property Name="UpdateTime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IdAuth" Type="Int32" />
+          <NavigationProperty Name="Authority" Relationship="DeCuongOnTapModel.FK__EssayTest__IdAut__5165187F" FromRole="EssayTest" ToRole="Authority" />
+        </EntityType>
+        <EntityType Name="MultiChoice">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Level" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Question" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="AnswerA" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="AnswerB" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="AnswerC" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="AnswerD" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Answer" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+          <Property Name="UpdateTime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IdAuth" Type="Int32" />
+          <NavigationProperty Name="Authority" Relationship="DeCuongOnTapModel.FK__MultiChoi__IdAut__4D94879B" FromRole="MultiChoice" ToRole="Authority" />
+        </EntityType>
+        <Association Name="FK__EssayTest__IdAut__5165187F">
+          <End Type="DeCuongOnTapModel.Authority" Role="Authority" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DeCuongOnTapModel.EssayTest" Role="EssayTest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Authority">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EssayTest">
+              <PropertyRef Name="IdAuth" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MultiChoi__IdAut__4D94879B">
+          <End Type="DeCuongOnTapModel.Authority" Role="Authority" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="DeCuongOnTapModel.MultiChoice" Role="MultiChoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Authority">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MultiChoice">
+              <PropertyRef Name="IdAuth" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DeCuongOnTapModelStoreContainer" CdmEntityContainer="DeCuongOnTapEntities">
+          <EntitySetMapping Name="Administrators">
+            <EntityTypeMapping TypeName="DeCuongOnTapModel.Administrator">
+              <MappingFragment StoreEntitySet="Administrator">
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Authorities">
+            <EntityTypeMapping TypeName="DeCuongOnTapModel.Authority">
+              <MappingFragment StoreEntitySet="Authority">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="IdGrade" ColumnName="IdGrade" />
+                <ScalarProperty Name="IdSem" ColumnName="IdSem" />
+                <ScalarProperty Name="IdSubject" ColumnName="IdSubject" />
+                <ScalarProperty Name="IdTeacher" ColumnName="IdTeacher" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Grades">
+            <EntityTypeMapping TypeName="DeCuongOnTapModel.Grade">
+              <MappingFragment StoreEntitySet="Grade">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="GradeName" ColumnName="GradeName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Semesters">
+            <EntityTypeMapping TypeName="DeCuongOnTapModel.Semester">
+              <MappingFragment StoreEntitySet="Semester">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="SemName" ColumnName="SemName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Subjects">
+            <EntityTypeMapping TypeName="DeCuongOnTapModel.Subject">
+              <MappingFragment StoreEntitySet="Subject">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="SubjectName" ColumnName="SubjectName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Teachers">
+            <EntityTypeMapping TypeName="DeCuongOnTapModel.Teacher">
+              <MappingFragment StoreEntitySet="Teacher">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EssayTests">
+            <EntityTypeMapping TypeName="DeCuongOnTapModel.EssayTest">
+              <MappingFragment StoreEntitySet="EssayTest">
+                <ScalarProperty Name="IdAuth" ColumnName="IdAuth" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Answer" ColumnName="Answer" />
+                <ScalarProperty Name="Question" ColumnName="Question" />
+                <ScalarProperty Name="Level" ColumnName="Level" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MultiChoices">
+            <EntityTypeMapping TypeName="DeCuongOnTapModel.MultiChoice">
+              <MappingFragment StoreEntitySet="MultiChoice">
+                <ScalarProperty Name="IdAuth" ColumnName="IdAuth" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Answer" ColumnName="Answer" />
+                <ScalarProperty Name="AnswerD" ColumnName="AnswerD" />
+                <ScalarProperty Name="AnswerC" ColumnName="AnswerC" />
+                <ScalarProperty Name="AnswerB" ColumnName="AnswerB" />
+                <ScalarProperty Name="AnswerA" ColumnName="AnswerA" />
+                <ScalarProperty Name="Question" ColumnName="Question" />
+                <ScalarProperty Name="Level" ColumnName="Level" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

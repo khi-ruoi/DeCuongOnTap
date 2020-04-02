@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29728.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeCuongOnTap", "DeCuongOnTap\DeCuongOnTap.csproj", "{ED3B6EC8-9D1A-41CB-AAF6-5BE809D55677}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebDeCuongOnTap", "WebDeCuongOnTap\WebDeCuongOnTap.csproj", "{72ED6791-ADBA-45BB-B76E-40AAA20A0E86}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ED3B6EC8-9D1A-41CB-AAF6-5BE809D55677}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED3B6EC8-9D1A-41CB-AAF6-5BE809D55677}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED3B6EC8-9D1A-41CB-AAF6-5BE809D55677}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED3B6EC8-9D1A-41CB-AAF6-5BE809D55677}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72ED6791-ADBA-45BB-B76E-40AAA20A0E86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72ED6791-ADBA-45BB-B76E-40AAA20A0E86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72ED6791-ADBA-45BB-B76E-40AAA20A0E86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72ED6791-ADBA-45BB-B76E-40AAA20A0E86}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F24E2355-8C40-47FA-8311-C467C0AF0E6F}
+	EndGlobalSection
+EndGlobal
